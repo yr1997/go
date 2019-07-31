@@ -1,0 +1,61 @@
+{{set . "title" "Todo list"}}
+{{template "header.html" .}}
+
+<header class="jumbotron" style="background-color:#A9F16C">
+  <div class="container">
+    <div class="row">
+      <h1>Todo list</h1>
+      <p></p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <form action="/posts" method="post">
+        <div class="form-group">
+            <div class="row">
+                <label for="todo" class="col-xs-2">Todo</label>
+                <input type="text" name="body" class="col-xs-8">
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-plus"></i> Add Todo
+                    </button>
+                </div>            
+            </div>
+        </div>
+    </form>
+
+    <h2>Current Todos</h2>
+    <table class="table table-striped todo-table">
+        <thead>
+            <th>Todos</th><th>&nbsp;</th>
+        </thead>
+
+        <tbody>
+            {{ range .posts }}
+                <tr>
+                    <td>
+                        <div>{{ .Body }}</div>
+                    </td>
+                    <td>
+                        <form action="/posts/{{.Id}}/delete" method="post">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    
+</div>
+
+
+{{template "footer.html" .}}
